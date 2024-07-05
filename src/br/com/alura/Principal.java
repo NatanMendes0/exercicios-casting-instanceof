@@ -3,15 +3,13 @@ package br.com.alura;
 import br.com.alura.formas.Circulo;
 import br.com.alura.formas.Quadrado;
 import br.com.alura.interfaces.Forma;
-import br.com.alura.modelos.Animal;
-import br.com.alura.modelos.Cachorro;
-import br.com.alura.modelos.Pessoa;
-import br.com.alura.modelos.Produto;
+import br.com.alura.modelos.*;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Principal {
+
     public static void main(String[] args) {
         var pessoa1 = new Pessoa("Natan", 20);
         var pessoa2 = new Pessoa("Maria", 19);
@@ -38,6 +36,7 @@ public class Principal {
             System.out.println(item.toString());
 
             //Exercicio 3
+            //verifica se a classe a qual o item pertence é a cachorro
             if (item instanceof Cachorro cachorro){
                 System.out.println("\nExercicio 3:\n");
                 System.out.println("É um cachorro, foi necessário o casting! Raça: "+cachorro.getRaca());
@@ -57,11 +56,13 @@ public class Principal {
         listaDeProdutos.add(produto3);
         listaDeProdutos.add(produto4);
 
+        //incrementa a variável somaPrecos para calcular a média
         double somaPrecos = 0;
         for (Produto produto : listaDeProdutos){
             somaPrecos += produto.getPreco();
         }
 
+        //realiza a media dos preços com o tamanho da lista de produtos
         double media = somaPrecos / listaDeProdutos.size();
         System.out.printf("A média de preço dos produtos é de: R$ %.2f%n", media);
 
@@ -79,6 +80,7 @@ public class Principal {
         listaDeFormas.add(quadrado1);
         listaDeFormas.add(quadrado2);
         for (Forma item : listaDeFormas){
+            //verifica a qual classe o item pertence
             if (item instanceof Circulo){
                 System.out.println("Area do circulo: "+item.calcularArea());
             } else if (item instanceof Quadrado) {
@@ -88,5 +90,28 @@ public class Principal {
             }
         }
 
+        //Exercicio 6
+        System.out.println("\nExercicio 6:\n");
+
+        var conta1 = new ContaBancaria(1, 760.54);
+        var conta2 = new ContaBancaria(2, 712.213);
+        var conta3 = new ContaBancaria(3, 12.4);
+        var conta4 = new ContaBancaria(4, 450.54);
+        
+        ArrayList<ContaBancaria> listaDeContas = new ArrayList<>();
+        listaDeContas.add(conta1);
+        listaDeContas.add(conta2);
+        listaDeContas.add(conta3);
+        listaDeContas.add(conta4);
+
+        double maiorSaldo = 0;
+        int posicaoMaiorSaldo = 0;
+        for (ContaBancaria item : listaDeContas){
+            //verifica se o saldo do item é maior que o atribuído na variável maiorSaldo, utilizado como uma flag
+            if(item.getSaldo() > maiorSaldo){
+                posicaoMaiorSaldo = listaDeContas.indexOf(item);
+            }
+        }
+        System.out.println("A conta que tem mais saldo é a seguinte:\n" + listaDeContas.get(posicaoMaiorSaldo));
     }
 }
